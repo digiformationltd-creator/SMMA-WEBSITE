@@ -142,8 +142,21 @@
         .text-gradient {
             background: var(--grad-1);
             -webkit-background-clip: text;
-            background-clip: text; /* Fixed lint */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .hero-h1 {
+            font-size: 82px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #fff, var(--accent), #7B2FBE, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 8s linear infinite, heroFloat 6s ease-in-out infinite;
         }
 
         /* --- ANIMATIONS --- */
@@ -160,6 +173,17 @@
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 10px rgba(255, 45, 120, 0.2); }
             100% { box-shadow: 0 0 30px rgba(255, 45, 120, 0.5); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes heroFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         .reveal-text {
