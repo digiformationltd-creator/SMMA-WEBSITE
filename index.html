@@ -882,10 +882,16 @@
             let content;
             if (path.startsWith('/services/')) {
                 const serviceId = path.split('/')[2];
-                if (typeof renderServiceDetail === 'function') {
-                    content = await renderServiceDetail(serviceId);
-                    document.title = 'Service Details | ViralCraft';
-                }
+                content = await renderServiceDetail(serviceId);
+                document.title = 'Service Detail | ViralCraft';
+            } else if (path.startsWith('/blog/')) {
+                const postId = path.split('/')[2];
+                content = await renderBlogPost(postId);
+                document.title = 'Blog Post | ViralCraft';
+            } else if (path.startsWith('/case-studies/')) {
+                const studyId = path.split('/')[2];
+                content = await renderCaseStudyDetail(studyId);
+                document.title = 'Case Study | ViralCraft';
             } else {
                 const routeObj = routes[path] || routes['/'];
                 document.title = routeObj.title;
@@ -1232,45 +1238,92 @@
         }
         async function renderServiceDetail(id) {
             const data = {
-                'instagram': { title: 'Instagram Mastery', desc: 'Dominating feeds with aesthetic strategy and viral Reels.', icon: 'instagram' },
-                'tiktok': { title: 'TikTok Engine', desc: 'Scaling brands through trend-jacking and creator-led content.', icon: 'video' },
-                'ads': { title: 'Performance Ads', desc: 'High-ROAS campaigns built for conversion and scale.', icon: 'target' },
-                'linkedin': { title: 'B2B Authority', desc: 'Establishing professional dominance and high-value lead gen.', icon: 'linkedin' },
-                'youtube': { title: 'YouTube Growth', desc: 'Long-form and Shorts strategy for channel sustainability.', icon: 'youtube' },
-                'content': { title: 'Content Production', desc: 'High-end studio production tailored for social algorithms.', icon: 'camera' },
-                'influencer': { title: 'Influencer Strategy', desc: 'Vetted creator partnerships that drive authentic trust.', icon: 'users' },
-                'strategy': { title: 'Growth Strategy', desc: 'Foundational data analysis and cross-platform roadmaps.', icon: 'compass' }
-            }[id] || { title: 'Service Not Found', desc: 'Please select a valid service.', icon: 'help-circle' };
+                'instagram': { 
+                    title: 'Instagram Mastery', 
+                    desc: 'Dominating feeds with aesthetic strategy and viral Reels.', 
+                    icon: 'instagram',
+                    bullets: ['Aesthetic Grid Planning', 'Viral Reel Production', 'Influencer Seeding', 'Community Management'],
+                    results: 'Average 3.2x engagement lift in 90 days.'
+                },
+                'tiktok': { 
+                    title: 'TikTok Engine', 
+                    desc: 'Scaling brands through trend-jacking and creator-led content.', 
+                    icon: 'video',
+                    bullets: ['Trend Identification', 'UGC Creator Sourcing', 'TikTok Shop Setup', 'Spark Ads Management'],
+                    results: '+200% MoM view growth guaranteed.'
+                },
+                'ads': { 
+                    title: 'Performance Ads', 
+                    desc: 'High-ROAS campaigns built for conversion and scale.', 
+                    icon: 'target',
+                    bullets: ['Meta Ads Mastery', 'Creative Testing Framework', 'Retargeting Funnels', 'Attribution Modeling'],
+                    results: 'Industry-leading 4.5x average ROAS.'
+                },
+                'linkedin': { 
+                    title: 'B2B Authority', 
+                    desc: 'Establishing professional dominance and high-value lead gen.', 
+                    icon: 'linkedin',
+                    bullets: ['Thought Leadership Dev', 'Lead Gen Funnels', 'Employee Advocacy', 'InMail Strategies'],
+                    results: '50+ High-intent leads per month per profile.'
+                },
+                'youtube': { 
+                    title: 'YouTube Growth', 
+                    desc: 'Long-form and Shorts strategy for channel sustainability.', 
+                    icon: 'youtube',
+                    bullets: ['SEO Optimization', 'Thumbnail Design', 'Shorts Strategy', 'Scripting & Production'],
+                    results: 'Avg. 45% increase in retention rates.'
+                },
+                'content': { 
+                    title: 'Content Production', 
+                    desc: 'High-end studio production tailored for social algorithms.', 
+                    icon: 'camera',
+                    bullets: ['Studio Shoots', 'Motion Graphics', 'Short-form Editing', 'Brand Guidelines'],
+                    results: 'Premium visuals that drive 2x stop-rate.'
+                },
+                'influencer': { 
+                    title: 'Influencer Strategy', 
+                    desc: 'Vetted creator partnerships that drive authentic trust.', 
+                    icon: 'users',
+                    bullets: ['Creator Matching', 'Contract Management', 'Campaign Tracking', 'Whitelisting Services'],
+                    results: 'Access to 10k+ vetted UK creators.'
+                },
+                'strategy': { 
+                    title: 'Growth Strategy', 
+                    desc: 'Foundational data analysis and cross-platform roadmaps.', 
+                    icon: 'compass',
+                    bullets: ['Competitor Audits', 'Customer Persona Dev', 'Kpi Frameworks', 'Omnichannel Roadmaps'],
+                    results: 'Clear roadmap to 7-figure social revenue.'
+                }
+            }[id] || { title: 'Service Not Found', desc: 'Please select a valid service.', icon: 'help-circle', bullets: [], results: '' };
 
             return `
                 <section style="padding: 120px 0;">
                     <div class="container">
                         <div class="usp-grid">
                             <div class="usp-content">
-                                <div class="badge">SPECIFIC SERVICE</div>
-                                <h1>${data.title}</h1>
-                                <p>${data.desc}</p>
-                                <div style="margin-top: 40px;">
+                                <div class="badge">DEEP DIVE: ${id.toUpperCase()}</div>
+                                <h1 class="reveal-text">${data.title}</h1>
+                                <p class="fade-in">${data.desc}</p>
+                                <div style="margin-top: 40px;" class="fade-in">
                                     <div class="glass" style="padding: 24px; margin-bottom: 20px;">
-                                        <h4>The Objective</h4>
-                                        <p style="color:var(--text-muted);">To transform your social presence into a predictable revenue stream through platform-native execution.</p>
+                                        <h4>The Strategy</h4>
+                                        <p style="color:var(--text-muted); margin-bottom: 15px;">Focusing on high-impact growth through native platform execution.</p>
+                                        <ul class="footer-list">
+                                            ${data.bullets.map(b => `<li><i data-lucide="check" style="width:14px; color:var(--accent);"></i> ${b}</li>`).join('')}
+                                        </ul>
                                     </div>
                                     <div class="glass" style="padding: 24px;">
-                                        <h4>Our Approach</h4>
-                                        <ul class="footer-list" style="margin-top: 10px;">
-                                            <li><i data-lucide="check" style="width:14px; color:var(--accent);"></i> Data-driven auditing</li>
-                                            <li><i data-lucide="check" style="width:14px; color:var(--accent);"></i> Custom content calendars</li>
-                                            <li><i data-lucide="check" style="width:14px; color:var(--accent);"></i> Daily community monitoring</li>
-                                        </ul>
+                                        <h4>Expected Results</h4>
+                                        <p style="color:var(--accent); font-weight: bold; font-size: 1.2rem;">${data.results}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="usp-cards">
                                 <div class="usp-card glass" style="text-align:center;">
                                     <div class="s-icon" style="margin: 0 auto 20px;"><i data-lucide="${data.icon}"></i></div>
-                                    <h3>Ready to scale?</h3>
-                                    <p>Get a custom ${data.title} roadmap today.</p>
-                                    <a href="/free-audit" class="btn btn-primary" style="margin-top:20px; width:100%;" onclick="route(event)">Get Started</a>
+                                    <h3>Scale ${data.title}</h3>
+                                    <p>Get a custom roadmap in 24 hours.</p>
+                                    <a href="/free-audit" class="btn btn-primary" style="margin-top:20px; width:100%;" onclick="route(event)">Get My Audit</a>
                                 </div>
                             </div>
                         </div>
@@ -1373,6 +1426,10 @@
         }
 
         async function renderCaseStudies() {
+            const studies = [
+                { id: 'beauty-brand', name: 'E-com Beauty Brand', desc: '+400% sales growth in 3 months through TikTok Ads.' },
+                { id: 'fitness-gym', name: 'High-End Fitness Gym', desc: '20k new followers and 500+ trial bookings via Instagram.' }
+            ];
             return `
                 <section style="padding: 120px 0;">
                     <div class="container">
@@ -1382,18 +1439,14 @@
                             <p>See how we've helped UK brands scale their social presence.</p>
                         </div>
                         <div class="services-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 60px;">
-                            <div class="service-card glass">
-                                <div style="width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:20px;"></div>
-                                <h3>E-com Beauty Brand</h3>
-                                <p>+400% sales growth in 3 months through TikTok Ads.</p>
-                                <div class="badge" style="margin-top:10px;">Case Study</div>
-                            </div>
-                            <div class="service-card glass">
-                                <div style="width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:20px;"></div>
-                                <h3>High-End Fitness Gym</h3>
-                                <p>20k new followers and 500+ trial bookings via Instagram.</p>
-                                <div class="badge" style="margin-top:10px;">Case Study</div>
-                            </div>
+                            ${studies.map(study => `
+                                <div class="service-card glass">
+                                    <div style="width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:20px;"></div>
+                                    <h3>${study.name}</h3>
+                                    <p>${study.desc}</p>
+                                    <a href="/case-studies/${study.id}" class="badge" style="margin-top:10px; display:inline-block; text-decoration:none;" onclick="route(event)">View Case Study</a>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </section>
@@ -1401,6 +1454,11 @@
         }
 
         async function renderBlog() {
+            const posts = [
+                { id: 'trends-2026', title: 'TikTok Trends 2026', desc: 'How to stay ahead of the algorithm this year.' },
+                { id: 'reels-mastery', title: 'Instagram Reels Mastery', desc: 'The secret to 100k views on every video.' },
+                { id: 'linkedin-b2b', title: 'B2B on LinkedIn', desc: 'Building authority without being boring.' }
+            ];
             return `
                 <section style="padding: 120px 0;">
                     <div class="container">
@@ -1410,21 +1468,54 @@
                             <p>The latest trends and strategies from the London social scene.</p>
                         </div>
                         <div class="services-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;">
-                            <div class="service-card glass">
-                                <h3>TikTok Trends 2026</h3>
-                                <p>How to stay ahead of the algorithm this year.</p>
-                                <div class="s-link" style="margin-top:20px;">Read More</div>
-                            </div>
-                            <div class="service-card glass">
-                                <h3>Instagram Reels Mastery</h3>
-                                <p>The secret to 100k views on every video.</p>
-                                <div class="s-link" style="margin-top:20px;">Read More</div>
-                            </div>
-                            <div class="service-card glass">
-                                <h3>B2B on LinkedIn</h3>
-                                <p>Building authority without being boring.</p>
-                                <div class="s-link" style="margin-top:20px;">Read More</div>
-                            </div>
+                            ${posts.map(post => `
+                                <div class="service-card glass">
+                                    <h3>${post.title}</h3>
+                                    <p>${post.desc}</p>
+                                    <a href="/blog/${post.id}" class="s-link" style="margin-top:20px; display:inline-block;" onclick="route(event)">Read More</a>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        async function renderBlogPost(id) {
+            const posts = {
+                'trends-2026': { title: 'TikTok Trends 2026', body: 'The 2026 landscape is dominated by hyper-niche communities...' },
+                'reels-mastery': { title: 'Instagram Reels Mastery', body: 'Engagement on Reels is no longer just about audio...' },
+                'linkedin-b2b': { title: 'B2B on LinkedIn', body: 'Personal branding is the new corporate website...' }
+            };
+            const post = posts[id] || { title: 'Post Not Found', body: '' };
+            return `
+                <section style="padding: 120px 0;">
+                    <div class="container" style="max-width: 800px;">
+                        <a href="/blog" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 20px; display:inline-block;">&larr; Back to Blog</a>
+                        <h1>${post.title}</h1>
+                        <div class="glass" style="padding: 40px; margin-top: 40px; line-height: 1.8; color: var(--text-muted);">
+                            <p>${post.body}</p>
+                            <p style="margin-top: 20px;">[Full article content would go here, optimized for reading with glassmorphism aesthetics...]</p>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        async function renderCaseStudyDetail(id) {
+             const studies = {
+                'beauty-brand': { title: 'E-com Beauty Brand', results: '+400% Sales growth via TikTok.' },
+                'fitness-gym': { title: 'High-End Fitness Gym', results: '20k+ Followers & 500+ trials.' }
+            };
+            const study = studies[id] || { title: 'Case Study Not Found', results: '' };
+            return `
+                <section style="padding: 120px 0;">
+                    <div class="container" style="max-width: 900px;">
+                        <a href="/case-studies" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 20px; display:inline-block;">&larr; Back to Results</a>
+                        <h1>Case Study: <span class="text-gradient">${study.title}</span></h1>
+                        <div class="glass" style="padding: 40px; margin-top: 40px;">
+                            <h2 style="color:var(--accent);">${study.results}</h2>
+                            <p style="margin-top: 20px; color:var(--text-muted);">We implemented a 3-stage funnel approach that utilized...</p>
                         </div>
                     </div>
                 </section>
