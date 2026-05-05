@@ -1043,10 +1043,16 @@
         }
 
         function initAnimations() {
+            // Targeted components that need dynamic class addition
             document.querySelectorAll('.service-card, .process-step, .usp-card, .cta-box, .stat-item').forEach(el => {
                 el.classList.add('fade-in');
+            });
+
+            // Universal observation of all fade-in elements (static and dynamic)
+            document.querySelectorAll('.fade-in').forEach(el => {
                 scrollObserver.observe(el);
             });
+
             document.querySelectorAll('.stat-num').forEach(el => scrollObserver.observe(el));
         }
 
