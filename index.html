@@ -659,9 +659,10 @@
                     <div class="nav-links">
                         <a href="/" class="nav-link" onclick="route(event)">Home</a>
                         <a href="/services" class="nav-link" onclick="route(event)">Services</a>
+                        <a href="/why-us" class="nav-link" onclick="route(event)">Why Us</a>
                         <a href="/case-studies" class="nav-link" onclick="route(event)">Cases</a>
                         <a href="/pricing" class="nav-link" onclick="route(event)">Pricing</a>
-                        <a href="/about" class="nav-link" onclick="route(event)">About</a>
+                        <a href="/faq" class="nav-link" onclick="route(event)">FAQ</a>
                         <a href="/contact" class="nav-link" onclick="route(event)">Contact</a>
                     </div>
 
@@ -684,9 +685,10 @@
             <div class="menu-links">
                 <a href="/" class="menu-link" onclick="route(event)">Home</a>
                 <a href="/services" class="menu-link" onclick="route(event)">Services</a>
+                <a href="/why-us" class="menu-link" onclick="route(event)">Why ViralCraft</a>
                 <a href="/case-studies" class="menu-link" onclick="route(event)">Case Studies</a>
                 <a href="/pricing" class="menu-link" onclick="route(event)">Pricing</a>
-                <a href="/about" class="menu-link" onclick="route(event)">About Us</a>
+                <a href="/faq" class="menu-link" onclick="route(event)">FAQ</a>
                 <a href="/contact" class="menu-link" onclick="route(event)">Contact</a>
                 <a href="/free-audit" class="menu-link" onclick="route(event)" style="color: var(--accent);">Free Audit</a>
             </div>
@@ -720,8 +722,10 @@
                         <h5>Company</h5>
                         <ul class="footer-list">
                             <li><a href="/about" onclick="route(event)">About Us</a></li>
+                            <li><a href="/why-us" onclick="route(event)">Why ViralCraft</a></li>
                             <li><a href="/case-studies" onclick="route(event)">Success Stories</a></li>
                             <li><a href="/blog" onclick="route(event)">Viral Blog</a></li>
+                            <li><a href="/faq" onclick="route(event)">FAQ</a></li>
                             <li><a href="/privacy" onclick="route(event)">Privacy Policy</a></li>
                         </ul>
                     </div>
@@ -1335,6 +1339,72 @@
                 </section>
             `;
         }
+        async function renderFAQ() {
+            const faqs = [
+                { q: 'How soon can we see results?', a: 'Viral growth can happen overnight, but sustainable ROI typically scales within 30-90 days of consistent strategy execution.' },
+                { q: 'Which platforms do you specialize in?', a: 'We are elite specialists in TikTok, Instagram, and Paid Social (Meta), focusing on short-form viral mastery.' },
+                { q: 'Do you provide the content creators?', a: 'Yes, we have a 100% in-house creative team in London. We do not outsource your brand identity.' },
+                { q: 'Do we need a large budget for ads?', a: 'We scale with you. We start with data-backed testing budgets and aggressively ramp up once ROAS is proven.' }
+            ];
+            return `
+                <section style="padding: 120px 0;">
+                    <div class="container" style="max-width: 800px;">
+                        <div class="section-header" style="text-align:center;">
+                            <div class="badge">HELP CENTER</div>
+                            <h1>Frequently Asked <span class="text-gradient">Questions</span></h1>
+                            <p>Everything you need to know about scaling with ViralCraft.</p>
+                        </div>
+                        <div style="margin-top: 60px;">
+                            ${faqs.map((faq, i) => `
+                                <div class="glass" style="padding: 30px; margin-bottom: 20px; cursor:pointer;" onclick="this.querySelector('.faq-a').toggleAttribute('hidden')">
+                                    <h4 style="display:flex; justify-content:space-between; align-items:center;">
+                                        ${faq.q} <i data-lucide="plus" style="width:20px;"></i>
+                                    </h4>
+                                    <p class="faq-a" style="margin-top:20px; color:var(--text-muted); line-height:1.6;" hidden>${faq.a}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        async function renderWhyUs() {
+            return `
+                <section style="padding: 120px 0;">
+                    <div class="container">
+                        <div class="usp-grid">
+                            <div class="usp-content">
+                                <div class="badge">THE VIRALCRAFT EDGE</div>
+                                <h1>Why UK Brands <br><span class="text-gradient">Choose Elite.</span></h1>
+                                <p>In a world of "standard" agencies, we stand alone as a performance-first viral engine.</p>
+                                <div style="margin-top: 40px;">
+                                    <div class="glass" style="padding:24px; margin-bottom:16px;">
+                                        <h4>01. No Outsourcing</h4>
+                                        <p style="color:var(--text-muted);">Every piece of strategy and content is born in our London hub.</p>
+                                    </div>
+                                    <div class="glass" style="padding:24px;">
+                                        <h4>02. Proprietary Tech</h4>
+                                        <p style="color:var(--text-muted);">We use internal AI-driven trend monitoring that beats the algorithm every time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usp-cards">
+                                <div class="usp-card glass" style="border: 2px solid var(--accent);">
+                                    <h2 class="text-gradient">8.5x</h2>
+                                    <p>Average ROAS across all managed ad accounts in 2025.</p>
+                                </div>
+                                <div class="usp-card glass">
+                                    <h2 class="text-gradient">100M+</h2>
+                                    <p>Organic views generated for our clients in the last quarter.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
         async function renderServiceDetail(id) {
             const data = {
                 'instagram': { 
@@ -1526,24 +1596,28 @@
 
         async function renderCaseStudies() {
             const studies = [
-                { id: 'beauty-brand', name: 'E-com Beauty Brand', desc: '+400% sales growth in 3 months through TikTok Ads.' },
-                { id: 'fitness-gym', name: 'High-End Fitness Gym', desc: '20k new followers and 500+ trial bookings via Instagram.' }
+                { id: 'beauty-brand', name: 'E-com Beauty Brand', desc: '+400% sales growth in 3 months through TikTok Ads.', result: '+400% ROI' },
+                { id: 'fitness-gym', name: 'High-End Fitness Gym', desc: '20k new followers and 500+ trial bookings via Instagram.', result: '20k Growth' },
+                { id: 'streetwear-uk', name: 'Streetwear Label', desc: 'Sold out 3 drops in a row using viral storytelling.', result: 'Sold Out' },
+                { id: 'tech-startup', name: 'Fintech App', desc: 'Achieved 50k downloads in 30 days with LinkedIn authority.', result: '50k DLs' }
             ];
             return `
                 <section style="padding: 120px 0;">
                     <div class="container">
                         <div class="section-header" style="text-align: center;">
-                            <div class="badge">CASE STUDIES</div>
-                            <h1>Results That <span class="text-gradient">Speak Volulmes</span></h1>
-                            <p>See how we've helped UK brands scale their social presence.</p>
+                            <div class="badge">PROVEN RESULTS</div>
+                            <h1>Scale. Impact. <span class="text-gradient">Success.</span></h1>
+                            <p>Real data from brands that dared to go viral with us.</p>
                         </div>
                         <div class="services-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 60px;">
                             ${studies.map(study => `
                                 <div class="service-card glass">
-                                    <div style="width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:20px;"></div>
-                                    <h3>${study.name}</h3>
+                                    <div style="width:100%; height:240px; background:linear-gradient(45deg, #150D26, #7B2FBE22); border-radius:16px; margin-bottom:20px; display:flex; align-items:center; justify-content:center;">
+                                        <div class="badge" style="font-size:24px; padding:20px 40px; background:var(--bg-deep);">${study.result}</div>
+                                    </div>
+                                    <h3 style="font-family:var(--font-heading);">${study.name}</h3>
                                     <p>${study.desc}</p>
-                                    <a href="/case-studies/${study.id}" class="badge" style="margin-top:10px; display:inline-block; text-decoration:none;" onclick="route(event)">View Case Study</a>
+                                    <a href="/case-studies/${study.id}" class="btn btn-outline" style="margin-top:10px; width:100%;" onclick="route(event)">Read Case Study</a>
                                 </div>
                             `).join('')}
                         </div>
@@ -1554,24 +1628,26 @@
 
         async function renderBlog() {
             const posts = [
-                { id: 'trends-2026', title: 'TikTok Trends 2026', desc: 'How to stay ahead of the algorithm this year.' },
-                { id: 'reels-mastery', title: 'Instagram Reels Mastery', desc: 'The secret to 100k views on every video.' },
-                { id: 'linkedin-b2b', title: 'B2B on LinkedIn', desc: 'Building authority without being boring.' }
+                { id: 'trends-2026', title: 'TikTok Trends 2026', desc: 'How to stay ahead of the algorithm this year.', date: 'May 1, 2026' },
+                { id: 'reels-mastery', title: 'Instagram Reels Mastery', desc: 'The secret to 100k views on every video.', date: 'April 28, 2026' },
+                { id: 'linkedin-b2b', title: 'B2B on LinkedIn', desc: 'Building authority without being boring.', date: 'April 25, 2026' },
+                { id: 'viral-hooks', title: 'The Hook Formula', desc: '3 Seconds that define your brands future.', date: 'April 20, 2026' }
             ];
             return `
                 <section style="padding: 120px 0;">
                     <div class="container">
                         <div class="section-header">
                             <div class="badge">VIRAL BLOG</div>
-                            <h1>Social <span class="text-gradient">Insights</span></h1>
-                            <p>The latest trends and strategies from the London social scene.</p>
+                            <h1>Social <span class="text-gradient">Intelligence</span></h1>
+                            <p>Free blueprints and insights from our strategy hub in London.</p>
                         </div>
-                        <div class="services-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;">
+                        <div class="services-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 60px;">
                             ${posts.map(post => `
                                 <div class="service-card glass">
-                                    <h3>${post.title}</h3>
+                                    <p style="font-size:12px; color:var(--accent); margin-bottom:10px;">${post.date}</p>
+                                    <h3 style="font-family:var(--font-heading);">${post.title}</h3>
                                     <p>${post.desc}</p>
-                                    <a href="/blog/${post.id}" class="s-link" style="margin-top:20px; display:inline-block;" onclick="route(event)">Read More</a>
+                                    <a href="/blog/${post.id}" class="s-link" style="margin-top:20px; display:inline-block;" onclick="route(event)">Read Deep Dive <i data-lucide="arrow-right"></i></a>
                                 </div>
                             `).join('')}
                         </div>
@@ -1582,19 +1658,32 @@
 
         async function renderBlogPost(id) {
             const posts = {
-                'trends-2026': { title: 'TikTok Trends 2026', body: 'The 2026 landscape is dominated by hyper-niche communities...' },
-                'reels-mastery': { title: 'Instagram Reels Mastery', body: 'Engagement on Reels is no longer just about audio...' },
-                'linkedin-b2b': { title: 'B2B on LinkedIn', body: 'Personal branding is the new corporate website...' }
+                'trends-2026': { title: 'TikTok Trends 2026', body: 'The 2026 landscape is dominated by hyper-niche communities and AI-augmented creative. To stay ahead, brands must shift from "broad broadcasting" to "community-led storytelling". We recommend focusing on the first 1.5 seconds of every video to trigger the new algorithmic hooks.', author: 'Marcus Sterling' },
+                'reels-mastery': { title: 'Instagram Reels Mastery', body: 'Engagement on Reels is no longer just about trending audio. It is about "Stop Rate" and "Re-watch Rate". Our 2026 framework focuses on high-contrast visuals and rapid-fire editing inspired by neuro-marketing principles.', author: 'James Thorne' },
+                'linkedin-b2b': { title: 'B2B on LinkedIn', body: 'Personal branding is the new corporate website. Your executives are your brands strongest assets. We build authority by humanizing complex B2B solutions through authentic, value-first storytelling.', author: 'Marcus Sterling' },
+                'viral-hooks': { title: 'The Hook Formula', body: 'The first 3 seconds define your brand. We have tested over 5,000 hooks to develop a proprietary formula that guarantees a 40% higher retention rate than industry averages.', author: 'James Thorne' }
             };
-            const post = posts[id] || { title: 'Post Not Found', body: '' };
+            const post = posts[id] || { title: 'Post Not Found', body: '', author: 'Admin' };
             return `
                 <section style="padding: 120px 0;">
                     <div class="container" style="max-width: 800px;">
-                        <a href="/blog" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 20px; display:inline-block;">&larr; Back to Blog</a>
-                        <h1>${post.title}</h1>
-                        <div class="glass" style="padding: 40px; margin-top: 40px; line-height: 1.8; color: var(--text-muted);">
-                            <p>${post.body}</p>
-                            <p style="margin-top: 20px;">[Full article content would go here, optimized for reading with glassmorphism aesthetics...]</p>
+                        <a href="/blog" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 30px; display:inline-flex; align-items:center; gap:8px;"><i data-lucide="arrow-left" style="width:16px;"></i> Back to Strategy Hub</a>
+                        <h1 style="margin-top:20px; font-size:48px;">${post.title}</h1>
+                        <div style="display:flex; align-items:center; gap:12px; margin: 30px 0;">
+                            <div class="mock-avatar" style="width:40px; height:40px;"></div>
+                            <div>
+                                <p style="font-weight:600; font-size:14px;">${post.author}</p>
+                                <p style="font-size:12px; color:var(--text-muted);">Strategy Lead @ ViralCraft</p>
+                            </div>
+                        </div>
+                        <div class="glass" style="padding: 50px; border-radius:32px; line-height: 1.8; color: #ccc;">
+                            <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:30px;">${post.body}</p>
+                            <p>At ViralCraft, we believe that content is the fuel, but strategy is the engine. By combining data-driven insights with world-class production, we ensure your brand doesn't just "go viral"—it stays relevant.</p>
+                            <div style="margin-top:40px; padding-top:40px; border-top:1px solid rgba(255,255,255,0.05);">
+                                <h4>Want a custom plan?</h4>
+                                <p style="margin-bottom:20px;">We'll audit your brand and show you exactly how to implement this strategy.</p>
+                                <a href="/free-audit" class="btn btn-primary" onclick="route(event)">Claim Free Audit</a>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1603,18 +1692,39 @@
 
         async function renderCaseStudyDetail(id) {
              const studies = {
-                'beauty-brand': { title: 'E-com Beauty Brand', results: '+400% Sales growth via TikTok.' },
-                'fitness-gym': { title: 'High-End Fitness Gym', results: '20k+ Followers & 500+ trials.' }
+                'beauty-brand': { title: 'E-com Beauty Brand', results: '+400% Sales growth via TikTok.', client: 'LushDigital', duration: '3 Months' },
+                'fitness-gym': { title: 'High-End Fitness Gym', results: '20k+ Followers & 500+ trials.', client: 'PrimeFit London', duration: '6 Months' },
+                'streetwear-uk': { title: 'Streetwear Label', results: 'Sold out 3 drops in a row.', client: 'StreetVibes', duration: '2 Months' },
+                'tech-startup': { title: 'Fintech App', results: '50k+ downloads via authority building.', client: 'NeoPay', duration: '4 Months' }
             };
-            const study = studies[id] || { title: 'Case Study Not Found', results: '' };
+            const study = studies[id] || { title: 'Case Study Not Found', results: '', client: 'N/A', duration: 'N/A' };
             return `
                 <section style="padding: 120px 0;">
-                    <div class="container" style="max-width: 900px;">
-                        <a href="/case-studies" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 20px; display:inline-block;">&larr; Back to Results</a>
-                        <h1>Case Study: <span class="text-gradient">${study.title}</span></h1>
-                        <div class="glass" style="padding: 40px; margin-top: 40px;">
-                            <h2 style="color:var(--accent);">${study.results}</h2>
-                            <p style="margin-top: 20px; color:var(--text-muted);">We implemented a 3-stage funnel approach that utilized...</p>
+                    <div class="container" style="max-width: 1000px;">
+                        <a href="/case-studies" onclick="route(event)" style="color:var(--accent); text-decoration:none; margin-bottom: 30px; display:inline-flex; align-items:center; gap:8px;"><i data-lucide="arrow-left" style="width:16px;"></i> Back to Success Stories</a>
+                        <div class="usp-grid" style="align-items:start;">
+                            <div class="usp-content">
+                                <div class="badge">CLIENT: ${study.client}</div>
+                                <h1 style="font-size:52px; margin:20px 0;">The <span class="text-gradient">Viral Transformation.</span></h1>
+                                <p style="font-size:1.2rem; color:var(--text-light);">${study.title}</p>
+                                <div style="margin-top:40px; display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                                    <div class="glass" style="padding:24px;">
+                                        <p style="font-size:12px; color:var(--text-muted);">TIMELINE</p>
+                                        <p style="font-size:18px; font-weight:600;">${study.duration}</p>
+                                    </div>
+                                    <div class="glass" style="padding:24px;">
+                                        <p style="font-size:12px; color:var(--text-muted);">IMPACT</p>
+                                        <p style="font-size:18px; font-weight:600; color:var(--accent);">${study.results}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usp-cards">
+                                <div class="glass" style="padding:40px; border-radius:32px;">
+                                    <h3>Project Summary</h3>
+                                    <p style="margin-top:20px; color:var(--text-muted); border-left:2px solid var(--accent); padding-left:16px;">We utilized a multi-stage viral funnel approach combining organic noise with high-performance retargeting. The result was a categorical shift in brand authority and a massive lift in direct acquisitions.</p>
+                                    <a href="/free-audit" class="btn btn-primary" style="margin-top:30px; width:100%;" onclick="route(event)">Get Similar Results</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
